@@ -38,7 +38,7 @@ from transformers import T5ForConditionalGeneration, AutoTokenizer
 
 # load data synthesis model
 synthesis_model = T5ForConditionalGeneration.from_pretrained('mattymchen/nli-synthesizer-t5-base', use_auth_token=True)
-synthesis_tokenizer = AutoTokenizer.from_pretrained('nli-synthesizer-t5-base', use_auth_token=True)
+synthesis_tokenizer = AutoTokenizer.from_pretrained('mattymchen/nli-synthesizer-t5-base', use_auth_token=True)
 
 # prepare inputs
 input_sents = [
