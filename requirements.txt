@@ -1,0 +1,6 @@
+torch==1.10.1
+transformers==4.15.0
+datasets
+pandas
+scikit-learn
+prettytable
