@@ -29,7 +29,7 @@ All of our pre-trained models are now available from huggingface hub:
 | :---   |
 | [mattymchen/nli-synthesizer-t5-base](https://huggingface.co/mattymchen/nli-synthesizer-t5-base)   |
 | [mattymchen/gense-base]() |
-| [mattymchen/gense-base-plus]() |
+| [mattymchen/gense-base-plus](https://huggingface.co/mattymchen/gense-base-plus) |
 
 #### Example usage
 ##### Generation & Discrimination
