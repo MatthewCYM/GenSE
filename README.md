@@ -1,6 +1,6 @@
 ## GenSE
 
-Official implementation of EMNLP 2022 paper "Generate, Discriminate, and Contrast: A Semi-Supervised Sentence Representation Learning Framework"
+Official implementation of EMNLP 2022 paper [Generate, Discriminate, and Contrast: A Semi-Supervised Sentence Representation Learning Framework](https://arxiv.org/abs/2210.16798)
 
 ### Overview
 We propose a semi-supervised sentence embedding framework, GenSE, that effectively leverages large-scale unlabeled data. Our method include three parts: 
@@ -62,11 +62,6 @@ print(synthesis_tokenizer.batch_decode(outputs, skip_special_tokens=True))
 
 
 
-
-
-
-
-
 ### Synthetic Data
 We run our unified data synthesis model on open domain unlabeled sentences to obtain synthetic NLI triplets for GenSE training.
 
@@ -75,4 +70,16 @@ The resulting synthetic dataset SyNLI contains around 61M NLI triplets, which ca
 from datasets import load_dataset
 
 dataset = load_dataset("mattymchen/synli")
+```
+
+
+### Citation
+Please cite our paper if you use GenSE in your work:
+```
+@inproceedings{chen2022gense,
+  title={Generate, Discriminate and Contrast: A Semi-Supervised Sentence Representation Learning Framework},
+  author={Chen, Yiming and Zhang, Yan and Wang, Bin and Liu, Zuozhu and Li, Haizhou},
+  booktitle={Empirical Methods in Natural Language Processing (EMNLP)},
+  year={2022}
+}
 ```
