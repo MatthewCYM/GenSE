@@ -37,8 +37,8 @@ All of our pre-trained models are now available from huggingface hub:
 from transformers import T5ForConditionalGeneration, AutoTokenizer
 
 # load data synthesis model
-synthesis_model = T5ForConditionalGeneration.from_pretrained('mattymchen/nli-synthesizer-t5-base', use_auth_token=True)
-synthesis_tokenizer = AutoTokenizer.from_pretrained('mattymchen/nli-synthesizer-t5-base', use_auth_token=True)
+synthesis_model = T5ForConditionalGeneration.from_pretrained('mattymchen/nli-synthesizer-t5-base')
+synthesis_tokenizer = AutoTokenizer.from_pretrained('mattymchen/nli-synthesizer-t5-base')
 
 # prepare inputs
 input_sents = [
@@ -60,6 +60,31 @@ outputs = synthesis_model.generate(**input_features, top_p=0.9)
 print(synthesis_tokenizer.batch_decode(outputs, skip_special_tokens=True))
 ```
 
+##### Sentence Embedding
+```python
+import torch
+from transformers import T5Model, AutoTokenizer
+
+# load embedding model
+embedding_model = T5Model.from_pretrained('mattymchen/gense-base-plus').eval()
+embedding_tokenizer = AutoTokenizer.from_pretrained('mattymchen/gense-base-plus')
+
+# prepare inputs
+input_sents = [
+    'The task of judging the best was not easy. Question: what can we draw from the above sentence?',
+]
+input_features = embedding_tokenizer(input_sents, add_special_tokens=True, padding=True, return_tensors='pt')
+decoder_start_token_id = embedding_model._get_decoder_start_token_id()
+input_features['decoder_input_ids'] = torch.full([input_features['input_ids'].shape[0], 1], decoder_start_token_id)
+
+# inference
+with torch.no_grad():
+    outputs = embedding_model(**input_features, output_hidden_states=True, return_dict=True)
+    last_hidden = outputs.last_hidden_state
+    sent_embs = last_hidden[:, 0].cpu()
+print(sent_embs)
+```
+
 
 
 ### Synthetic Data
@@ -71,6 +96,7 @@ from datasets import load_dataset
 
 dataset = load_dataset("mattymchen/synli")
 ```
+
 
 
 ### Citation
