@@ -31,7 +31,44 @@ All of our pre-trained models are now available from huggingface hub:
 | [mattymchen/gense-base](https://huggingface.co/mattymchen/gense-base) |
 | [mattymchen/gense-base-plus](https://huggingface.co/mattymchen/gense-base-plus) |
 
-#### Example usage
+### Example Usage
+#### Use with GenSE
+We provide a simple package, which can be used to generate NLI triplets and compute sentence embeddings:
+```shell script
+pip install gense
+```
+##### Generation & Discrimination
+```python
+from gense import Synthesizer
+
+synthesizer = Synthesizer('mattymchen/nli-synthesizer-t5-base')
+input_sents = [
+    'The task of judging the best was not easy.',
+    'A man plays the piano.'
+]
+
+# generate NLI triplets
+triplets = synthesizer.generate_triplets(input_sents)
+
+# filter triplets
+filtered_triplets = synthesizer.filter_triplets(triplets)
+
+print(filtered_triplets)
+```
+
+##### Sentence Embedding
+```python
+from gense import GenSE
+gense = GenSE('mattymchen/gense-base-plus')
+input_sents = [
+    'The task of judging the best was not easy.',
+    'A man plays the piano.'
+]
+print(gense.encode(input_sents))
+```
+
+#### Use with Huggingface
+Alternatively, you can also directly use GenSE with huggingface `transformers`.
 ##### Generation & Discrimination
 ```python
 from transformers import T5ForConditionalGeneration, AutoTokenizer
@@ -109,3 +146,6 @@ Please cite our paper if you use GenSE in your work:
   year={2022}
 }
 ```
+
+### Acknowledgement
+Code is implemented based on SimCSE. We would like to thank the authors of SimCSE for making their code public.
