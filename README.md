@@ -60,11 +60,40 @@ print(filtered_triplets)
 ```python
 from gense import GenSE
 gense = GenSE('mattymchen/gense-base-plus')
-input_sents = [
-    'The task of judging the best was not easy.',
-    'A man plays the piano.'
+example_sentences = [
+    'An animal is biting a persons finger.',
+    'A woman is reading.',
+    'A man is lifting weights in a garage.',
+    'A man plays the violin.',
+    'A man is eating food.',
+    'A man plays the piano.',
+    'A panda is climbing.',
+    'A man plays a guitar.',
+    'A woman is slicing a meat.',
+    'A woman is taking a picture.'
 ]
-print(gense.encode(input_sents))
+example_queries = [
+    'A man is playing music.',
+    'A woman is making a photo.'
+]
+```
+Encode sentence
+```python
+print(gense.encode(example_sentences))
+```
+Compute cosine similarity
+```python
+similarities = gense.similarity(example_queries, example_sentences)
+print(similarities)
+```
+Semantic search
+```python
+gense.build_index(example_sentences, use_faiss=True)
+results = gense.search(example_queries)
+for i, result in enumerate(results):
+    print("Retrieval results for query: {}".format(example_queries[i]))
+    for sentence, score in result:
+        print("    {}  (cosine similarity: {:.4f})".format(sentence, score))
 ```
 
 #### Use with Huggingface
